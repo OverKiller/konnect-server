@@ -62,3 +62,9 @@ type Process struct {
 	RAMUsed        uint64  `json:"ramUsed"`
 	RAMUsedPercent float32 `json:"usedPercent"`
 }
+
+//StartProcess Response
+type StartProcess struct {
+	*ResponseMessage
+	PID int `json:"pid"`
+}

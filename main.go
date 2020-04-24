@@ -11,11 +11,13 @@ import (
 
 //Actions Constants
 const (
-	ActionChangeMedia = "change_media" //TODO
-	ActionLogin       = "login"
-	ActionProcess     = "get_process"
-	ActionScreenshot  = "get_screenshot"
-	ActionStats       = "get_stats"
+	ActionChangeMedia  = "change_media" //TODO
+	ActionKillProcess  = "kill_process"
+	ActionLogin        = "login"
+	ActionProcess      = "get_process"
+	ActionScreenshot   = "get_screenshot"
+	ActionStartProcess = "start_process"
+	ActionStats        = "get_stats"
 )
 
 var addr = flag.String("addr", "0.0.0.0:3567", "http service address") //TODO: Make configuration file and receive two separate parameters (host and port)
@@ -44,12 +46,16 @@ func handleMessage(m []byte, c *websocket.Conn, mt int) {
 	var res []byte
 
 	switch message.Action {
+	case ActionKillProcess:
+		res = killProcess(message, responseMessage)
 	case ActionLogin:
 		res, _ = json.Marshal(responseMessage)
 	case ActionProcess:
 		res = getProcess(message, responseMessage)
 	case ActionScreenshot:
 		res = getScreenShot(message, responseMessage)
+	case ActionStartProcess:
+		res = startProcess(message, responseMessage)
 	case ActionStats:
 		res = getStats(message, responseMessage)
 	}
