@@ -43,7 +43,7 @@ type Disk struct {
 	UsedPercent float64 `json:"usedPercent"`
 }
 
-//Screenshot Response
+//ScreenShot Response
 type ScreenShot struct {
 	*ResponseMessage
 	Content string `json:"b64img"`
