@@ -11,8 +11,9 @@ import (
 
 //Actions Constants
 const (
-	ActionChangeMedia = "change_media"
+	ActionChangeMedia = "change_media" //TODO
 	ActionLogin       = "login"
+	ActionProcess     = "get_process"
 	ActionScreenshot  = "get_screenshot"
 	ActionStats       = "get_stats"
 )
@@ -45,10 +46,12 @@ func handleMessage(m []byte, c *websocket.Conn, mt int) {
 	switch message.Action {
 	case ActionLogin:
 		res, _ = json.Marshal(responseMessage)
-	case ActionStats:
-		res = getStats(message, responseMessage)
+	case ActionProcess:
+		res = getProcess(message, responseMessage)
 	case ActionScreenshot:
 		res = getScreenShot(message, responseMessage)
+	case ActionStats:
+		res = getStats(message, responseMessage)
 	}
 
 	if res != nil {

@@ -48,3 +48,17 @@ type ScreenShot struct {
 	*ResponseMessage
 	Content string `json:"b64img"`
 }
+
+//ProcessList Response
+type ProcessList struct {
+	*ResponseMessage
+	ProcessList []Process `json:"processList"`
+}
+
+//Process Struct
+type Process struct {
+	Name           string  `json:"name"`
+	PID            int32   `json:"pid"`
+	RAMUsed        uint64  `json:"ramUsed"`
+	RAMUsedPercent float32 `json:"usedPercent"`
+}

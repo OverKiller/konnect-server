@@ -18,21 +18,21 @@ func getStats(message Message, rm *ResponseMessage) []byte {
 	hostInfo, _ := host.Info()
 	memInfo, _ := mem.VirtualMemory()
 	diskInfo, _ := disk.Partitions(true)
-	disks := make([]Disk, len(diskInfo))
+	disks := make([]Disk, 0)
 
-	for i, partition := range diskInfo {
+	for _, partition := range diskInfo {
 		d, err := disk.Usage(partition.Mountpoint)
 		if err != nil {
 			continue
 		}
-		disks[i] = Disk{
+		disks = append(disks, Disk{
 			Letter:      partition.Device,
 			Label:       partition.Mountpoint,
 			TotalSize:   d.Total,
 			Free:        d.Free,
 			Used:        d.Used,
 			UsedPercent: d.UsedPercent,
-		}
+		})
 	}
 
 	stats := &Stats{
